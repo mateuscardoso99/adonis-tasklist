@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>
+    @!section('title')
+  </title>
+  {{ cspMeta() }}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {{style('style')}}
+
+</head>
+<body>
+  <section style="flex:1;">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="{{route('login')}}" class="brand-logo center">
+          <img src="{{assetsUrl('tasks.png')}}" style="width:100px;height:60px;">
+        </a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul id="nav-mobile" class="right hide-on-small-only">
+          @loggedIn
+            <li>
+              <a class="waves-effect waves-light btn modal-trigger" href="#modal1">{{auth.user.email}}</a>
+            </li>
+          @else
+            <li>
+              <a href="{{route('register')}}">Criar conta</a>
+            </li>
+          @endloggedIn
+        </ul>
+    </div>
+  </nav>
+  <ul class="sidenav" id="mobile-demo">
+    @loggedIn
+      <div class="container">
+        <li><p>{{auth.user.email}}</p></li>
+        <li>
+          <form action="{{ route('logout') }}" method="post">
+            {{ csrfField() }}
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              Sair
+            </button>
+          </form>
+        </li>
+      </div>
+    @else
+      <li>
+        <a href="{{route('register')}}">Criar conta</a>
+      </li>
+    @endloggedIn
+  </ul>
+
+  <div class="container">
+    @!section('content')
+  </div>
+
+</section>
+
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+      © 2020
+      <a class="grey-text text-lighten-4 right" href="#!">Adonis - tasks</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+  });
+</script>
+
+<script type="text/javascript">
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+  });
+</script>
+
+
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content">
+    <div class="row center-align">
+      <form action="{{ route('logout') }}" method="post">
+        {{ csrfField() }}
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+          Sair
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+@layout('layouts.skeleton')
+
+@section('title')
+  Faça login
+@endsection
+
+@section('content')
+  <main>
+    @if(flashMessage('successMessage'))
+      <p class="flow-text">{{flashMessage('successMessage')}}</p>
+    @endif
+
+    @if(flashMessage('invalidCredentials'))
+      <p class="flow-text">{{flashMessage('invalidCredentials')}}</p>
+    @endif
+      
+    <div class="row">
+      <form class="col s12" action="{{route('login.store')}}" method="post">
+        {{ csrfField() }}
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name="email">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <!--{{ elIf('<span>$self</span>',getErrorFor('email'), hasErrorFor('email')) }} -->
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password">
+            <label for="password">Senha</label>
+          </div>
+        </div>
+        <!-- {{ elIf('<span>$self</span>',getErrorFor('password'), hasErrorFor('password')) }} -->
+
+        <div class="row center-align">
+          <button class="btn waves-effect waves-light " type="submit" name="action">Entrar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+@endsection

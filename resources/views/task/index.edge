@@ -1,0 +1,57 @@
+@layout('layouts.skeleton')
+
+@section('title')
+  Suas tarefas
+@endsection
+
+@section('content')
+  <main>
+    <a href="{{ route('task.create') }}">Nova tarefa</a>
+
+    @if(flashMessage('successMessage'))
+      <p class="flow-text center-align">{{flashMessage('successMessage')}}</p>
+    @endif
+
+    <!-- <ul>
+      @each(task in tasks)
+        <li>
+          {{task.description}} - {{ task.date }}
+          <a href="{{route('task.edit',{id: task.id})}}">Editar</a>
+          <form action="{{route('task.delete',{id: task.id }) + '?_method=delete'}}" method="post">
+            {{csrfField()}}
+            <button type="submit">Apagar</button>
+          </form>
+        </li>
+      @endeach
+    </ul>
+ -->
+     <table class="centered">
+        <thead>
+          <tr>
+              <th>Descrição</th>
+              <th>Data</th>
+              <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @each(task in tasks)
+            <tr>
+              <td>{{task.description}}</td>
+              <td>{{ task.date }}</td>
+              <td>
+                <a href="{{route('task.edit',{id: task.id})}}" class="btn waves-effect waves-light">Editar</a>
+                <form action="{{route('task.delete',{id: task.id }) + '?_method=delete'}}" method="post">
+                  {{csrfField()}}
+                  <button class="btn waves-effect waves-light" type="submit" name="action" style="margin-top:2px;">
+                    Apagar
+                  </button>
+                </form>
+              </td>
+            </tr>
+         @endeach
+        </tbody>
+      </table>
+
+  </main>
+@endsection

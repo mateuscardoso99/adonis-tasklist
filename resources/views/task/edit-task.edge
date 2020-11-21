@@ -1,0 +1,35 @@
+@layout('layouts.skeleton')
+
+@section('title')
+  Editar tarefa
+@endsection
+
+@section('content')
+  <main>
+    <div class="row">
+      <form class="col s12" action="{{ route('task.update',{id: task.id}) +'?_method=put' }}" method="post">
+        {{ csrfField() }}
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="description" class="validate" type="text" name="description" value="{{ task.description }}">
+            <label for="description">Descrição</label>
+          </div>
+          {{ elIf('<span>$self</span>',getErrorFor('description'), hasErrorFor('description')) }}
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="date" class="validate" type="text" name="date" value="{{ task.date }}">
+            <label for="date">Data</label>
+          </div>
+          {{ elIf('<span>$self</span>',getErrorFor('date'), hasErrorFor('date')) }}
+        </div>
+
+        <div class="row center-align">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+@endsection

@@ -1,0 +1,47 @@
+@layout('layouts.skeleton')
+
+@section('title')
+  Criar conta
+@endsection
+
+@section('content')
+  <main>
+    @if(flashMessage('successMessage'))
+      <span>{{ flashMessage('successMessage') }}</span>
+    @endif
+
+    <div class="row">
+      <form class="col s12" action="{{route('register.store')}}" method="post">
+        {{ csrfField() }}
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" name="email" value="{{ old('email') }}">
+            <label for="email">Email</label>
+          </div>
+          {{ elIf('<span>$self</span>',getErrorFor('email'), hasErrorFor('email')) }}
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password">
+            <label for="password">Senha</label>
+          </div>
+          {{ elIf('<span>$self</span>',getErrorFor('password'), hasErrorFor('password')) }}
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password_confirmation" type="password" class="validate" name="password_confirmation">
+            <label for="password_confirmation">Confirme a senha</label>
+          </div>
+        </div>
+
+        <div class="row center-align">
+          <button class="btn waves-effect waves-light" type="submit" name="action">Criar conta
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+@endsection
